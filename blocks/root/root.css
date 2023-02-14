@@ -1,0 +1,29 @@
+.root {
+  background-color: #000000;
+  margin: 0 90px 60px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 282px;
+}
+
+@media screen and (max-width: 940px) {
+  .root {
+    margin:  0 60px 45px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .root {
+    margin: 0 35px 45px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .root {
+    margin:  0 19px 36px;
+  }
+}

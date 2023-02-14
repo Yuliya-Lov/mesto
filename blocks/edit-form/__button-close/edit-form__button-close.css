@@ -1,0 +1,33 @@
+.edit-form__button-close {
+  background-image: url(../../../images/close-icon.svg);
+  background-size: 32px 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -78px;
+  right: -78px;
+}
+.edit-form__button-close:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width:540px) {
+  .edit-form__button-close {
+    background-size: 20px 20px;
+    width: 35px;
+    height: 35px;
+    top: -76px;
+    right: -46px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .edit-form__button-close {
+    right: -30px;
+    top: -68px;
+  }
+}
