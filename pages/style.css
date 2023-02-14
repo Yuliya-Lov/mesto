@@ -80,8 +80,12 @@
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.edit-button {
+.profile__edit-button {
   grid-column-start: 3;
   grid-row-start: 1;
   grid-row-end: 2;
@@ -98,7 +102,7 @@
   background-position: center;
 }
 
-.edit-button:hover {
+.profile__edit-button:hover {
   opacity: 0.6;
 
 }
@@ -170,6 +174,8 @@
   width: 22px;
   height: 19px;
   background-image: url(../images/heart.svg);
+  border: none;
+  background-color: transparent;
 }
 
 .place__like:hover {
@@ -377,7 +383,7 @@
     grid-row-end: 4;
   }
 
-  .edit-button {
+  .profile__edit-button {
       grid-column-start: 2;
       grid-row-start: 2;
       grid-row-end: 3;
@@ -394,14 +400,14 @@
 
   .profile__name {
     font-size: 27px;
-    max-width: 70%;
+    max-width: 100%;
   }
 
   .profile__self-description {
     font-size: 14px;
   }
 
-  .edit-button {
+  .profile__edit-button {
     width: 18px;
     height: 18px;
     margin-bottom: 10px;
@@ -444,6 +450,7 @@
 
   .profile__name {
     grid-column-end: 3;
+    max-width: 70%;
   }
 
   .profile__info {
@@ -451,7 +458,7 @@
   }
 
 
-  .edit-button {
+  .profile__edit-button {
     grid-column-start: 2;
     grid-row-start: 2;
     grid-row-end: 3;
