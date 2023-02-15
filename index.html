@@ -17,69 +17,69 @@
       <img src="./images/custo.jpg" alt="Фотография пользователя." class="profile__avatar">
       <h1 class="profile__name">Жак-Ив Кусто</h1>
       <p class="profile__self-description">Исследователь океана</p>
-      <button class="profile__edit-button"></button>
+      <button  type="button" class="profile__edit-button" aria-label="Редактировать профиль."></button>
     </div>
-    <button class="add-place"></button>
+    <button  type="button" class="profile__add-button" aria-label="Добавить место."></button>
   </section>
   <section class="places" aria-label="Места.">
-    <article class="place">
-      <img src="./images/dombai.jpg" alt="Осенний лес на склонах Домбая." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Домбай</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
-    <article class="place">
-      <img src="./images/mashuk.jpg" alt="Вид со склона на канатную дорогу над городом Машук." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Машук</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
-    <article class="place">
-      <img src="./images/murmansk.jpg" alt="Закат. Солнце освещает заснеженный берег." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Мурманск</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
-    <article class="place">
-      <img src="./images/spb.jpg" alt="Металлические арки на перроне Витебского вокзала в Санкт-Петербурге." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Санкт-Петербург</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
-    <article class="place">
-      <img src="./images/sochi.jpg" alt="Фиолетовые полевые цветы на склоне горы." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Сочи</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
-    <article class="place">
-      <img src="./images/gamsutl.jpg" alt="Разрушенная крепость на фоне гор и голубого неба." class="place__image">
-      <div class="place__about">
-        <h2 class="place__title">Гамсутль</h2>
-        <button class="place__like"></button>
-      </div>
-    </article>
+        <article class="place">
+          <img src="./images/dombai.jpg" alt="Осенний лес на склонах Домбая." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Домбай</h2>
+            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
+        <article class="place">
+          <img src="./images/mashuk.jpg" alt="Вид со склона на канатную дорогу над городом Машук." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Машук</h2>
+            <button type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
+        <article class="place">
+          <img src="./images/murmansk.jpg" alt="Закат. Солнце освещает заснеженный берег." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Мурманск</h2>
+            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
+        <article class="place">
+          <img src="./images/spb.jpg" alt="Металлические арки на перроне Витебского вокзала в Санкт-Петербурге." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Санкт-Петербург</h2>
+            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
+        <article class="place">
+          <img src="./images/sochi.jpg" alt="Фиолетовые полевые цветы на склоне горы." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Сочи</h2>
+            <button type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
+        <article class="place">
+          <img src="./images/gamsutl.jpg" alt="Разрушенная крепость на фоне гор и голубого неба." class="place__image">
+          <div class="place__about">
+            <h2 class="place__title">Гамсутль</h2>
+            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          </div>
+        </article>
   </section>
 </main>
+<footer class="footer">
+  <p class="footer__copyright" lang="en">&#169; 2020 Mesto Russia</p>
+</footer>
 <div class="popup">
   <div class="popup__container">
-    <form class="edit-form">
-      <h2 class="edit-form__title">Редактировать профиль</h2>
-      <input type="text" class="edit-form__user-name">
-      <input type="text" class="edit-form__user-description">
-      <button type="submit" class="edit-form__submit">Сохранить</button>
-      <button type="reset" class="edit-form__button-close"></button>
+    <h2 class="popup__title">Редактировать профиль</h2>
+    <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования профиля."></button>
+    <form name="editProfileForm" class="edit-form">
+      <input type="text" name="userNameInput" placeholder="Полное имя" class="edit-form__input edit-form__input_value_name">
+      <input type="text" name="userDescriptionInput" placeholder="Род деятельности" class="edit-form__input edit-form__input_value_description">
+      <button type="submit" class="edit-form__submit-button">Сохранить</button>
     </form>
   </div>
 </div>
-  <footer class="footer">
-    <p class="footer__copyright">© 2020 Mesto Russia</p>
-  </footer>
-  <script rel="script" src="./scripts/index.js"></script>
+  <script rel="script" src="./scripts/index.js" defer></script>
 </body>
 </html>

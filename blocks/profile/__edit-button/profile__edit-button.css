@@ -8,11 +8,13 @@
   margin-bottom: 13px;
   margin-left: 12px;
   border: 1px solid #FFFFFF;
-  background-color: black;
+  background-color: transparent;
   background-image: url(../../../images/edit-button.svg);
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 45%;
   background-position: center;
+  transition: opacity .5s;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {

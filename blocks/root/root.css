@@ -1,7 +1,8 @@
 .root {
   background-color: #000000;
+  color: #ffffff;
   margin: 0 90px 60px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter','Arial', sans-serif;
   font-style: normal;
   display: flex;
   flex-direction: column;
