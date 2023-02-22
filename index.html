@@ -22,64 +22,50 @@
     <button  type="button" class="profile__add-button" aria-label="Добавить место."></button>
   </section>
   <section class="places" aria-label="Места.">
-        <article class="place">
-          <img src="./images/dombai.jpg" alt="Осенний лес на склонах Домбая." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Домбай</h2>
-            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
-        <article class="place">
-          <img src="./images/mashuk.jpg" alt="Вид со склона на канатную дорогу над городом Машук." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Машук</h2>
-            <button type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
-        <article class="place">
-          <img src="./images/murmansk.jpg" alt="Закат. Солнце освещает заснеженный берег." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Мурманск</h2>
-            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
-        <article class="place">
-          <img src="./images/spb.jpg" alt="Металлические арки на перроне Витебского вокзала в Санкт-Петербурге." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Санкт-Петербург</h2>
-            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
-        <article class="place">
-          <img src="./images/sochi.jpg" alt="Фиолетовые полевые цветы на склоне горы." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Сочи</h2>
-            <button type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
-        <article class="place">
-          <img src="./images/gamsutl.jpg" alt="Разрушенная крепость на фоне гор и голубого неба." class="place__image">
-          <div class="place__about">
-            <h2 class="place__title">Гамсутль</h2>
-            <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
-          </div>
-        </article>
+    <template id="cardRender">
+      <article class="place">
+        <img class="place__image">
+        <button type="button" class="place__delete-button" aria-label="Удалить место."></button>
+        <div class="place__about">
+          <h2 class="place__title"></h2>
+          <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+        </div>
+      </article>
+    </template>
   </section>
 </main>
 <footer class="footer">
   <p class="footer__copyright" lang="en">&#169; 2020 Mesto Russia</p>
 </footer>
-<div class="popup">
+  <div class="popup" id="profilePopup">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования профиля."></button>
+      <form name="editProfileForm" class="edit-form">
+        <input type="text" name="userNameInput" placeholder="Полное имя" class="edit-form__input edit-form__input_value_name">
+        <input type="text" name="userDescriptionInput" placeholder="Род деятельности" class="edit-form__input edit-form__input_value_description">
+        <button type="submit" class="edit-form__submit-button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+<div class="popup" id="cardPopup">
   <div class="popup__container">
-    <h2 class="popup__title">Редактировать профиль</h2>
-    <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования профиля."></button>
-    <form name="editProfileForm" class="edit-form">
-      <input type="text" name="userNameInput" placeholder="Полное имя" class="edit-form__input edit-form__input_value_name">
-      <input type="text" name="userDescriptionInput" placeholder="Род деятельности" class="edit-form__input edit-form__input_value_description">
-      <button type="submit" class="edit-form__submit-button">Сохранить</button>
+    <h2 class="popup__title">Новое место</h2>
+    <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования карточки."></button>
+    <form name="cardForm" class="edit-form">
+      <input type="text" name="cardTitleInput" placeholder="Название" class="edit-form__input edit-form__input_value_name">
+      <input type="text" name="cardLinkInput" placeholder="Ссылка на картинку" class="edit-form__input edit-form__input_value_description">
+      <button type="submit" class="edit-form__submit-button">Создать</button>
     </form>
   </div>
 </div>
-  <script rel="script" src="./scripts/index.js" defer></script>
+<div class="popup popup_dark" id="imagePopup">
+  <div class="popup__opened-place">
+    <img class="popup__opened-image">
+    <h2 class="popup__opened-title"></h2>
+    <button type="button" class="popup__button-close" aria-label="Закрыть изображение."></button>
+  </div>
+</div>
+<script rel="script" src="./scripts/index.js" defer></script>
 </body>
 </html>
