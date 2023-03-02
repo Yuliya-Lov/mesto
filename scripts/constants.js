@@ -48,3 +48,4 @@ const initialCards = [
     link: './images/gamsutl.jpg'
   }
 ];
+

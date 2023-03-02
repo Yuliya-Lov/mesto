@@ -60,9 +60,9 @@ profileEditButton.addEventListener('click', function () {
   userDescriptionProfileInput.value =  profileDescription.textContent;
   const profileInputList = [userNameProfileInput, userDescriptionProfileInput];
   profileInputList.forEach((input) => {
-    checkInputValidity (profileEditForm, input);
+    checkInputValidity (profileEditForm, input, propertySet);
   })
-  setButtonState(profileEditForm, profileInputList);
+  setButtonState(profileEditForm, profileInputList, propertySet);
   openPopup(profilePopup);
   }
 )
@@ -71,7 +71,7 @@ cardAddButton.addEventListener('click', function () {
   cardAddForm.reset();
   const cardInputList = Array.from(cardAddForm.querySelectorAll('.form__input'));
   cardInputList.forEach((input) => {
-    hideInputError(cardAddForm, input);
+    hideInputError(cardAddForm, input, propertySet);
   })
   openPopup(cardPopup);
   }
@@ -145,5 +145,3 @@ function addNewCard(evt) {
 }
 
 cardAddForm.addEventListener('submit', addNewCard);
-
-
