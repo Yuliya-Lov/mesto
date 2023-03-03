@@ -4,7 +4,7 @@ const profileEditForm = document.querySelector('.form_edit_profile');
 const userNameProfileInput = document.querySelector('.form__input_value_name');
 const userDescriptionProfileInput = document.querySelector('.form__input_value_employment');
 const popups = document.querySelectorAll('.popup');
-const closeButtons = document.querySelectorAll('.popup__button-close');
+const buttonsClose = document.querySelectorAll('.popup__button-close');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__self-description');
 
@@ -20,28 +20,26 @@ const popupOpenPlace = document.querySelector('.popup_view-image');
 const imagePopupOpenPlace = document.querySelector('.popup__opened-image');
 const titlePopupOpenPlace = document.querySelector('.popup__opened-title');
 
-function closePopupEsc(evt, selectedPopup) {
+function closePopupEsc(evt) {
   if(evt.key === 'Escape') {
-    closePopup(selectedPopup);
-    document.removeEventListener('keydown', closePopupEsc(selectedPopup, evt));
+  closePopup(document.querySelector('.popup_opened'));
   }
 }
 
 function openPopup(selectedPopup) {
   selectedPopup.classList.add('popup_opened');
-  document.addEventListener('keydown', function (evt) {
-    closePopupEsc(evt, selectedPopup);
-  } );
+  document.addEventListener('keydown', closePopupEsc);
 }
 
 function closePopup(selectedPopup) {
   selectedPopup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc)
 }
 
-popups.forEach(el => {
-  el.addEventListener('click', function (evt) {
-    if(el === evt.target) {
-      closePopup(el);
+popups.forEach(popup => {
+  popup.addEventListener('click', function (evt) {
+    if(popup === evt.target) {
+      closePopup(popup);
     }
     }
   )
@@ -54,33 +52,31 @@ function saveProfileInfo(evt) {
   closePopup(profilePopup);
 }
 
+
+
 profileEditButton.addEventListener('click', function () {
   profileEditForm.reset();
   userNameProfileInput.value =  profileName.textContent;
   userDescriptionProfileInput.value =  profileDescription.textContent;
+  const buttonSubmit = profileEditForm.querySelector('.form__submit-button');
   const profileInputList = [userNameProfileInput, userDescriptionProfileInput];
-  profileInputList.forEach((input) => {
-    checkInputValidity (profileEditForm, input, propertySet);
-  })
-  setButtonState(profileEditForm, profileInputList, propertySet);
+  setInitialStateForm(profileEditForm, profileInputList, buttonSubmit, propertySet)
   openPopup(profilePopup);
   }
 )
 
 cardAddButton.addEventListener('click', function () {
   cardAddForm.reset();
+  const buttonSubmit = cardAddForm.querySelector('.form__submit-button');
   const cardInputList = Array.from(cardAddForm.querySelectorAll('.form__input'));
-  cardInputList.forEach((input) => {
-    hideInputError(cardAddForm, input, propertySet);
-  })
+  setInitialStateForm(cardAddForm, cardInputList, buttonSubmit, propertySet);
   openPopup(cardPopup);
   }
 )
 
-closeButtons.forEach(button => {
+buttonsClose.forEach(button => {
   button.addEventListener('click', function (evt) {
-    button = evt.target;
-    const closestPopup = button.closest('.popup');
+    const closestPopup = evt.target.closest('.popup');
     closePopup(closestPopup);
     }
   );
@@ -88,8 +84,8 @@ closeButtons.forEach(button => {
 
 profileEditForm.addEventListener('submit', saveProfileInfo);
 
-function addCard(el) {
-  sectionPlaces.prepend(el);
+function addCard(cardContainer, cardElement) {
+  cardContainer.prepend(cardElement);
 }
 
 function viewImage(image) {
@@ -115,8 +111,7 @@ function createCard(card) {
   })
 
   deleteButton.addEventListener('click', (evt) => {
-    deleteClick = event.target;
-    const place = deleteClick.closest('.place');
+    const place = evt.target.closest('.place');
     place.remove();
   })
 
@@ -129,7 +124,7 @@ function createCard(card) {
 
 const createCardList = initialCards.forEach(card => {
   createCard(card);
-  addCard(createCard(card));
+  addCard(sectionPlaces,createCard(card));
   }
 )
 
@@ -139,7 +134,7 @@ function addNewCard(evt) {
   card.name = cardTitleInput.value;
   card.link = cardLinkInput.value;
   createCard(card);
-  addCard(createCard(card));
+  addCard(sectionPlaces, createCard(card));
   closePopup(cardPopup);
   cardAddForm.reset();
 }
