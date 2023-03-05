@@ -32,8 +32,7 @@ function checkInputValidity (formElement, inputElement, settings) {
 function hasInputsValid (inputList) {
   return inputList.some((input) => {
     return !input.validity.valid;
-    }
-  )
+  })
 }
 
 function setButtonState(inputList, button, settings) {
@@ -49,7 +48,6 @@ function setButtonState(inputList, button, settings) {
 
 function setInitialStateForm(formElement, inputList, button, settings) {
   inputList.forEach((input) => {
-    checkInputValidity (formElement, input, settings);
     hideInputError(formElement, input, settings);
   })
   setButtonState(inputList, button, settings);
