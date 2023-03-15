@@ -40,10 +40,13 @@ function setButtonState(inputList, button, settings) {
   {
     button.classList.add(settings.inactiveButtonClass);
     button.setAttribute('disabled', 'disabled');
+    button.style = 'pointer-events: none';
+
   } else {
     button.classList.remove(settings.inactiveButtonClass);
     button.removeAttribute('disabled', 'disabled');
-  }
+    button.style = 'pointer-events: auto';
+}
 }
 
 function setInitialStateForm(formElement, inputList, button, settings) {
