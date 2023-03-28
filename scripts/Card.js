@@ -1,4 +1,3 @@
-import {initialCards} from './constants.js';
 import {openPopup} from './index.js';
 
 export default class Card {
@@ -56,8 +55,3 @@ export default class Card {
 
   }
 }
-
-initialCards.forEach((current) => {
-  const newCard = new Card(current, '#cardRender');
-  document.querySelector('.places').prepend(newCard.generateCard());
-})
