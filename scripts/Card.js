@@ -8,7 +8,7 @@ export default class Card {
   }
 
   _getTemplate() {
-    const newCard = document
+    return document
     .querySelector(this._template)
     .content
     .querySelector('.place')
@@ -16,12 +16,20 @@ export default class Card {
     return newCard;
   }
 
+  _createCard() {
+    this._card = this._getTemplate();
+    this._card.querySelector('.place__title').textContent = this._title;
+    this._card.querySelector('.place__image').setAttribute('src', this._image);
+    this._card.querySelector('.place__image').setAttribute('alt', this._title);
+    return this._card;
+  }
+
   _getLike(evt) {
     evt.target.classList.toggle('place__like-button_active');
   }
 
   _removeCard() {
-    this._genetatedCard.remove();
+    this._card.remove();
   }
 
   _viewImage() {
@@ -35,23 +43,20 @@ export default class Card {
   }
 
   _setEventListeners() {
-    const likeButton =  this._genetatedCard.querySelector('.place__like-button');
+    const likeButton =  this._card.querySelector('.place__like-button');
     likeButton.addEventListener('click',(evt) => {this._getLike(evt)});
 
-    const deleteButton = this._genetatedCard.querySelector('.place__delete-button');
+    const deleteButton = this._card.querySelector('.place__delete-button');
     deleteButton.addEventListener('click', () => {this._removeCard()});
 
-    const cardImage = this._genetatedCard.querySelector('.place__image');
+    const cardImage = this._card.querySelector('.place__image');
     cardImage.addEventListener('click', () => {this._viewImage()});
   }
 
   generateCard() {
-    this._genetatedCard = this._getTemplate();
-    this._genetatedCard.querySelector('.place__title').textContent = this._title;
-    this._genetatedCard.querySelector('.place__image').setAttribute('src', this._image);
-    this._genetatedCard.querySelector('.place__image').setAttribute('alt', this._title);
+    this._createCard();
     this._setEventListeners();
-    return this._genetatedCard;
+    return this._card;
 
   }
 }

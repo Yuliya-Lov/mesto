@@ -37,15 +37,34 @@ export default class FormValidator {
     })
   }
 
+  _disableSubmitButton() {
+    this._submitButton.classList.add( this._inactiveButtonClass);
+    this._submitButton.setAttribute('disabled', 'disabled');
+  }
+
+  _enableSubmitButton() {
+    this._submitButton.classList.remove( this._inactiveButtonClass);
+    this._submitButton.removeAttribute('disabled', 'disabled');
+  }
+
   _setButtonState() {
-    if (this._hasInputsValid() === true)
+    if (this._hasInputsValid())
     {
-      this._submitButton.classList.add( this._inactiveButtonClass);
-      this._submitButton.setAttribute('disabled', 'disabled');
+      this._disableSubmitButton();
     } else {
-      this._submitButton.classList.remove( this._inactiveButtonClass);
-      this._submitButton.removeAttribute('disabled', 'disabled');
+      this._enableSubmitButton();
     }
+  }
+
+  setInitialFormState() {
+    this._setButtonState();
+    this._inputList.forEach((input) => {
+      input.classList.remove(this._inputErrorClass);
+      const errorElement = this._form.querySelector(`.${input.id}-error`);
+      errorElement.classList.remove(this._errorClass);
+      errorElement.textContent = '';
+    })
+
   }
 
   _setEventListeners() {
@@ -63,7 +82,8 @@ export default class FormValidator {
     this._form.addEventListener('submit', function (evt) {
       evt.preventDefault();
       })
-
-    this._setEventListeners();
+    this._form.addEventListener('reset', () => {
+      this._disableSubmitButton();
+    })
   }
 }

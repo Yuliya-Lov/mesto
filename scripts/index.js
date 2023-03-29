@@ -15,9 +15,18 @@ const cardAddButton = document.querySelector('.profile__add-button');
 const cardAddForm = document.querySelector('.form_edit_card');
 const sectionPlaces = document.querySelector('.places');
 
-initialCards.forEach((current) => {
-  const newCard = new Card(current, '#cardRender');
-  document.querySelector('.places').prepend(newCard.generateCard());
+function addCard (data) {
+  const newCard = new Card(data, '#cardRender');
+  sectionPlaces.prepend(newCard.generateCard());
+}
+
+initialCards.forEach((current) => {addCard(current)})
+
+let arrayFormValidatorObjects = [];
+Array.from(document.forms).forEach((form) => {
+  const validatedForm = new FormValidator(propertySet, form);
+  arrayFormValidatorObjects.push(validatedForm);
+  validatedForm.enableValidation();
 })
 
 function closePopupEsc(evt) {
@@ -55,7 +64,8 @@ function saveProfileInfo() {
 profileEditButton.addEventListener('click', function () {
   profileEditForm.reset();
   userNameProfileInput.value =  profileName.textContent;
-  userDescriptionProfileInput.value =  profileDescription.textContent;
+  userDescriptionProfileInput.value = profileDescription.textContent;
+  arrayFormValidatorObjects[0].setInitialFormState();
   openPopup(profilePopup);
   }
 )
@@ -64,6 +74,7 @@ profileEditForm.addEventListener('submit', saveProfileInfo);
 
 cardAddButton.addEventListener('click', function () {
   cardAddForm.reset();
+  arrayFormValidatorObjects[1].setInitialFormState();
   openPopup(cardPopup);
   }
 )
