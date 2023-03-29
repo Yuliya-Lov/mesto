@@ -49,6 +49,7 @@ export default class FormValidator {
 
   _setButtonState() {
     if (this._hasInputsValid())
+    if (this._hasInputsValid())
     {
       this._disableSubmitButton();
     } else {
@@ -78,6 +79,7 @@ export default class FormValidator {
   }
 
   enableValidation() {
+    this._setEventListeners();
     this._form.addEventListener('submit', function (evt) {
       evt.preventDefault();
       })

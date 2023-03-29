@@ -37,24 +37,24 @@
 <footer class="footer">
   <p class="footer__copyright" lang="en">&#169; 2020 Mesto Russia</p>
 </footer>
-  <div class="popup popup_profile-form">
+  <div class="popup popup_type_profile-edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования профиля."></button>
-      <form class="form form_edit_profile" novalidate>
-        <input type="text" id="name-input" placeholder="Полное имя" class="form__input form__input_value_name" minlength="2" maxlength="40" required>
-        <span class=" form__input-error name-input-error">Как сдела  </span>
-        <input type="text"  id="employment-input"  placeholder="Род деятельности" class="form__input form__input_value_employment" minlength="2" maxlength="200" required>
-        <span class="form__input-error employment-input-error">Как сделать скрипт с п Как сделать скрипт Как сделать скрипт </span>
+      <form class="form form_type_profile-edit" novalidate>
+        <input type="text" id="name-input" placeholder="Полное имя" class="form__input form__input_value_name" minlength="2" maxlength="40" value="Имя" required>
+        <span class=" form__input-error name-input-error"></span>
+        <input type="text"  id="employment-input"  placeholder="Род деятельности" class="form__input form__input_value_employment" minlength="2" maxlength="200" value="Род деятельности" required>
+        <span class="form__input-error employment-input-error"></span>
         <button type="submit" class="form__submit-button form__submit-button_disabled">Сохранить</button>
       </form>
     </div>
   </div>
-<div class="popup popup_add-card-form">
+<div class="popup popup_type_add-card">
   <div class="popup__container">
     <h2 class="popup__title">Новое место</h2>
     <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования карточки."></button>
-    <form class="form form_edit_card" novalidate>
+    <form class="form form_type_add-card" novalidate>
       <input type="text" id="card-title-input" placeholder="Название" class="form__input form__input_value_title-card"  minlength="2" maxlength="30" required>
       <span class="form__input-error card-title-input-error"></span>
       <input type="url" id="card-url-input" placeholder="Ссылка на картинку" class="form__input form__input_value_picture-url" required>
@@ -63,7 +63,7 @@
     </form>
   </div>
 </div>
-<div class="popup popup_view-image">
+<div class="popup popup_type_view-image">
   <div class="popup__opened-place">
     <img class="popup__opened-image" src="#" alt="#">
     <h2 class="popup__opened-title">Заголовок</h2>

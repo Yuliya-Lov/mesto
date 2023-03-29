@@ -1,18 +1,21 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards, propertySet} from './constants.js';
+export const popupOpenPlace = document.querySelector('.popup_type_view-image');
+export const imagePopupOpenPlace = document.querySelector('.popup__opened-image');
+export const titlePopupOpenPlace = document.querySelector('.popup__opened-title');
 
 const profileEditButton = document.querySelector('.profile__edit-button');
-const profilePopup = document.querySelector('.popup_profile-form');
-const profileEditForm = document.querySelector('.form_edit_profile');
+const profilePopup = document.querySelector('.popup_type_profile-edit');
+const profileEditForm = document.querySelector('.form_type_profile-edit');
 const userNameProfileInput = document.querySelector('.form__input_value_name');
 const userDescriptionProfileInput = document.querySelector('.form__input_value_employment');
 const popups = document.querySelectorAll('.popup');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__self-description');
-const cardPopup = document.querySelector('.popup_add-card-form');
+const cardPopup = document.querySelector('.popup_type_add-card');
 const cardAddButton = document.querySelector('.profile__add-button');
-const cardAddForm = document.querySelector('.form_edit_card');
+const cardAddForm = document.querySelector('.form_type_add-card');
 const sectionPlaces = document.querySelector('.places');
 
 function addCard (data) {
@@ -42,7 +45,7 @@ export function openPopup(selectedPopup) {
 
 function closePopup(selectedPopup) {
   selectedPopup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc)
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
 popups.forEach(popup => {

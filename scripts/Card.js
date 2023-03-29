@@ -1,4 +1,4 @@
-import {openPopup} from './index.js';
+import {openPopup, popupOpenPlace, imagePopupOpenPlace, titlePopupOpenPlace} from './index.js';
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -21,6 +21,7 @@ export default class Card {
     this._card.querySelector('.place__image').setAttribute('src', this._image);
     this._card.querySelector('.place__image').setAttribute('alt', this._title);
     return this._card;
+
   }
 
   _getLike(evt) {
@@ -32,9 +33,6 @@ export default class Card {
   }
 
   _viewImage() {
-    const popupOpenPlace = document.querySelector('.popup_view-image');
-    const imagePopupOpenPlace = document.querySelector('.popup__opened-image');
-    const titlePopupOpenPlace = document.querySelector('.popup__opened-title');
     openPopup(popupOpenPlace);
     imagePopupOpenPlace.setAttribute('src', this._image);
     imagePopupOpenPlace.setAttribute('alt', this._title);
