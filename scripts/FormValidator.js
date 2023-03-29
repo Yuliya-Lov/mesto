@@ -49,7 +49,6 @@ export default class FormValidator {
 
   _setButtonState() {
     if (this._hasInputsValid())
-    if (this._hasInputsValid())
     {
       this._disableSubmitButton();
     } else {
@@ -65,7 +64,6 @@ export default class FormValidator {
       errorElement.classList.remove(this._errorClass);
       errorElement.textContent = '';
     })
-
   }
 
   _setEventListeners() {

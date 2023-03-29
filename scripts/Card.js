@@ -54,6 +54,5 @@ export default class Card {
     this._createCard();
     this._setEventListeners();
     return this._card;
-
   }
 }
