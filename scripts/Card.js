@@ -1,4 +1,4 @@
-import {openPopup} from './index.js';
+import {openPopup, popupOpenPlace, imagePopupOpenPlace, titlePopupOpenPlace} from './index.js';
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -16,6 +16,15 @@ export default class Card {
     return newCard;
   }
 
+  _createCard() {
+    this._card = this._getTemplate();
+    this._card.querySelector('.place__title').textContent = this._title;
+    this._card.querySelector('.place__image').setAttribute('src', this._image);
+    this._card.querySelector('.place__image').setAttribute('alt', this._title);
+    return this._card;
+
+  }
+
   _getLike(evt) {
     evt.target.classList.toggle('place__like-button_active');
   }
@@ -25,9 +34,6 @@ export default class Card {
   }
 
   _viewImage() {
-    const popupOpenPlace = document.querySelector('.popup_view-image');
-    const imagePopupOpenPlace = document.querySelector('.popup__opened-image');
-    const titlePopupOpenPlace = document.querySelector('.popup__opened-title');
     openPopup(popupOpenPlace);
     imagePopupOpenPlace.setAttribute('src', this._image);
     imagePopupOpenPlace.setAttribute('alt', this._title);
@@ -46,10 +52,7 @@ export default class Card {
   }
 
   generateCard() {
-    this._genetatedCard = this._getTemplate();
-    this._genetatedCard.querySelector('.place__title').textContent = this._title;
-    this._genetatedCard.querySelector('.place__image').setAttribute('src', this._image);
-    this._genetatedCard.querySelector('.place__image').setAttribute('alt', this._title);
+    this._genetatedCard = this._createCard();
     this._setEventListeners();
     return this._genetatedCard;
 
