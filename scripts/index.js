@@ -20,7 +20,7 @@ function addCard (data) {
   sectionPlaces.prepend(newCard.generateCard());
 }
 
-initialCards.forEach((current) => {addCard(current)})
+initialCards.forEach((current) => {addCard(current)});
 
 let arrayFormValidatorObjects = [];
 Array.from(document.forms).forEach((form) => {
@@ -36,8 +36,6 @@ function closePopupEsc(evt) {
 }
 
 export function openPopup(selectedPopup) {
-  const validatedForm = new FormValidator(propertySet, selectedPopup.querySelector('form'));
-  validatedForm.enableValidation();
   selectedPopup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -84,8 +82,7 @@ function getAditionalCard () {
     name: cardAddForm.querySelector('#card-title-input').value,
     link: cardAddForm.querySelector('#card-url-input').value
   }
-  const additionalCard  = new Card(additionalData, '#cardRender');
-  sectionPlaces.prepend(additionalCard.generateCard());
+  addCard (additionalData);
 }
 
 cardAddForm.addEventListener('submit', function() {

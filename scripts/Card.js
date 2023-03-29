@@ -13,7 +13,6 @@ export default class Card {
     .content
     .querySelector('.place')
     .cloneNode(true);
-    return newCard;
   }
 
   _createCard() {

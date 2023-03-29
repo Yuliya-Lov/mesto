@@ -69,7 +69,6 @@ export default class FormValidator {
 
   _setEventListeners() {
     this._setButtonState();
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', (evt)  => {
         this._checkInputValidity(evt);
@@ -85,5 +84,6 @@ export default class FormValidator {
     this._form.addEventListener('reset', () => {
       this._disableSubmitButton();
     })
+    this._setEventListeners();
   }
 }
