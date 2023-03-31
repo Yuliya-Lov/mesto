@@ -25,10 +25,11 @@ function addCard (data) {
 
 initialCards.forEach((current) => {addCard(current)});
 
-let arrayFormValidatorObjects = [];
+const arrayFormValidatorObjects = {};
 Array.from(document.forms).forEach((form) => {
   const validatedForm = new FormValidator(propertySet, form);
-  arrayFormValidatorObjects.push(validatedForm);
+  arrayFormValidatorObjects[form.name] = validatedForm;
+ //arrayFormValidatorObjects.push(validatedForm);
   validatedForm.enableValidation();
 })
 
@@ -66,7 +67,7 @@ profileEditButton.addEventListener('click', function () {
   profileEditForm.reset();
   userNameProfileInput.value =  profileName.textContent;
   userDescriptionProfileInput.value = profileDescription.textContent;
-  arrayFormValidatorObjects[0].setInitialFormState();
+  arrayFormValidatorObjects.formEditProfile.setInitialFormState();
   openPopup(profilePopup);
   }
 )
@@ -75,7 +76,7 @@ profileEditForm.addEventListener('submit', saveProfileInfo);
 
 cardAddButton.addEventListener('click', function () {
   cardAddForm.reset();
-  arrayFormValidatorObjects[1].setInitialFormState();
+  arrayFormValidatorObjects.formAddCard.setInitialFormState();
   openPopup(cardPopup);
   }
 )
