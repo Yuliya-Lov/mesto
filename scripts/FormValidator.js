@@ -9,25 +9,25 @@ export default class FormValidator {
     this._errorClass = settings.errorClass;
   }
 
-  _showInputError(evt) {
-    const errorElement = this._form.querySelector(`.${evt.target.id}-error`);
+  _showInputError(input) {
+    const errorElement = this._form.querySelector(`.${input.id}-error`);
     errorElement.classList.add(this._errorClass);
-    evt.target.classList.add(this._inputErrorClass);
-    errorElement.textContent = evt.target.validationMessage;
+    input.classList.add(this._inputErrorClass);
+    errorElement.textContent = input.validationMessage;
   }
 
-  _hideInputError(evt) {
-    const errorElement = this._form.querySelector(`.${evt.target.id}-error`);
+  _hideInputError(input) {
+    const errorElement = this._form.querySelector(`.${input.id}-error`);
       errorElement.classList.remove(this._errorClass);
-      evt.target.classList.remove(this._inputErrorClass);
+      input.classList.remove(this._inputErrorClass);
       errorElement.textContent = '';
   }
 
-  _checkInputValidity(evt) {
-    if(!evt.target.validity.valid) {
-      this._showInputError(evt);
+  _checkInputValidity(input) {
+    if(!input.validity.valid) {
+      this._showInputError(input);
     } else {
-      this._hideInputError(evt);
+      this._hideInputError(input);
     }
   }
 
@@ -59,10 +59,7 @@ export default class FormValidator {
   setInitialFormState() {
     this._setButtonState();
     this._inputList.forEach((input) => {
-      input.classList.remove(this._inputErrorClass);
-      const errorElement = this._form.querySelector(`.${input.id}-error`);
-      errorElement.classList.remove(this._errorClass);
-      errorElement.textContent = '';
+      this._hideInputError(input);
     })
   }
 
@@ -70,7 +67,7 @@ export default class FormValidator {
     this._setButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', (evt)  => {
-        this._checkInputValidity(evt);
+        this._checkInputValidity(inputElement);
         this._setButtonState();
       })
     })
