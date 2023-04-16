@@ -1,10 +1,10 @@
-import {openPopup, popupOpenPlace, imagePopupOpenPlace, titlePopupOpenPlace} from './index.js';
 
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
     this._template = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -32,13 +32,6 @@ export default class Card {
     this._card.remove();
   }
 
-  _viewImage() {
-    openPopup(popupOpenPlace);
-    imagePopupOpenPlace.setAttribute('src', this._image);
-    imagePopupOpenPlace.setAttribute('alt', this._title);
-    titlePopupOpenPlace.textContent = this._title;
-  }
-
   _setEventListeners() {
     const likeButton =  this._card.querySelector('.place__like-button');
     likeButton.addEventListener('click',(evt) => {this._getLike(evt)});
@@ -47,7 +40,7 @@ export default class Card {
     deleteButton.addEventListener('click', () => {this._removeCard()});
 
     const cardImage = this._card.querySelector('.place__image');
-    cardImage.addEventListener('click', () => {this._viewImage()});
+    cardImage.addEventListener('click', (evt) => {this._handleCardClick(evt)});
   }
 
   generateCard() {
