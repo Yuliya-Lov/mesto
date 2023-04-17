@@ -33,29 +33,29 @@ export  const initialCards = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
+  }/*,
   {
     name: 'Домбай',
-    link: './images/dombai.jpg'
+    link: new URL('../images/dombai.jpg', import.meta.url)
   },
   {
     name: 'Машук',
-    link: './images/mashuk.jpg'
+    link: new URL('../images/mashuk.jpg', import.meta.url)
   },
   {
     name: 'Мурманск',
-    link: './images/murmansk.jpg'
+    link: new URL('../images/murmansk.jpg', import.meta.url)
   },
   {
     name: 'Санкт-Петербург',
-    link: './images/spb.jpg'
+    link: new URL('../images/spb.jpg', import.meta.url)
   },
   {
     name: 'Сочи',
-    link: './images/sochi.jpg'
+    link: new URL('../images/sochi.jpg', import.meta.url)
   },
   {
     name: 'Гамсутль',
-    link: './images/gamsutl.jpg'
-  }
+    link: new URL('../images/gamsutl.jpg', import.meta.url)
+  } */
 ];

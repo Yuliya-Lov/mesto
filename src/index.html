@@ -5,16 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 <body class="root">
   <header class="header">
-    <a class="header__link" href="#"><img  class="header__logo" src="./images/logo.svg" alt="Логотип: Место Россия."></a>
+    <a class="header__link" href="#"><img  class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип: Место Россия."></a>
   </header>
   <main class="content">
   <section class="profile">
     <div class="profile__info">
-      <img src="./images/custo.jpg" alt="Фотография пользователя." class="profile__avatar">
+      <img src="<%=require('./images/custo.jpg')%>" alt="Фотография пользователя." class="profile__avatar">
       <h1 class="profile__name">Жак-Ив Кусто</h1>
       <p class="profile__self-description">Исследователь океана</p>
       <button  type="button" class="profile__edit-button" aria-label="Редактировать профиль."></button>
@@ -70,7 +70,7 @@
     <button type="button" class="popup__button-close" aria-label="Закрыть изображение."></button>
   </div>
 </div>
-<script rel="script"  type="module" src="./scripts/constants.js"></script>
+<!-- <script rel="script"  type="module" src="./scripts/constants.js"></script>
 <script rel="script" type="module" src="./scripts/index.js"></script>
 <script rel="script" type="module" src="./scripts/FormValidator.js"></script>
 <script rel="script" type="module" src="./scripts/Card.js"></script>
@@ -78,7 +78,7 @@
 <script rel="script" type="module" src="./scripts/PopupWithForm.js"></script>
 <script rel="script" type="module" src="./scripts/PopupWithImage.js"></script>
 <script rel="script" type="module" src="./scripts/Section.js"></script>
-<script rel="script" type="module" src="./scripts/UserInfo.js"></script>
+<script rel="script" type="module" src="./scripts/UserInfo.js"></script> -->
 
 </body>
 </html>
