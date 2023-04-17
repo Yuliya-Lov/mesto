@@ -4,7 +4,7 @@ import {
   propertySet,
   profileEditButton,
   cardAddButton
-} from '../components/constants.js';
+} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -12,16 +12,22 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
+const popupWithImg =  new PopupWithImage('.popup_type_view-image');
+popupWithImg.setEventListeners();
+
+function createCard(data) {
+  const card = new Card(data, '#cardRender', (evt) => {
+    popupWithImg.open(evt);
+  })
+  return card.generateCard();
+}
+
 const section = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#cardRender', (evt) => {
-      const popupWithImg = new PopupWithImage('.popup_type_view-image');
-      popupWithImg.setEventListeners();
-      popupWithImg.open(evt);
-    })
-    return card.generateCard();
-  }},
+    return createCard(item);
+    }
+  },
   '.places');
 
 section.renderItem();
@@ -40,13 +46,8 @@ profilePopupForm.setEventListeners();
 
 const cardPopupForm =  new PopupWithForm(
   '.popup_type_add-card',
-  (values) => {
-    const card = new Card({'name': Object.values(values)[0], 'link': Object.values(values)[1]}, '#cardRender', (evt) => {
-      const popupWithImg = new PopupWithImage('.popup_type_view-image');
-      popupWithImg.setEventListeners();
-      popupWithImg.open(evt);
-    })
-    section.addItem(card.generateCard());
+  (value) => {
+    section.addItem(createCard({'name': Object.values(value)[0], 'link': Object.values(value)[1]}));
   }
 )
 
