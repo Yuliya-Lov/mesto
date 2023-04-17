@@ -21,7 +21,6 @@ export default class Card {
     this._card.querySelector('.place__image').setAttribute('src', this._image);
     this._card.querySelector('.place__image').setAttribute('alt', this._title);
     return this._card;
-
   }
 
   _getLike(evt) {

@@ -18,20 +18,15 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setInitialInputValues(valuesArray){
-    console.log(this._popupInputList);
+  setInitialInputValues(valuesObj){
     Array.from(this._popupInputList).forEach((input,index) => {
-      console.log(input, index);
-      input.value = valuesArray[index];
+      input.value = Object.values(valuesObj)[index];
     })
   }
 
   setEventListeners(){
-    console.log('setEventListeners');
     super.setEventListeners();
     this._popupForm.addEventListener('submit', () => {
-      console.log("недописано");
-      this._getInputValues();
       this._submitAction(this._getInputValues());
       this.close();
     } );
