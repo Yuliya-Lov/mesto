@@ -11,6 +11,25 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  headers: {
+    authorization: '46497fa4-40de-48f4-8825-4510fbe41c2a',
+    'Content-Type': 'application/json'
+  }
+});
+
+const userInfo = new UserInfo({userNameSelector:'.profile__name', userDescriptionSelector:'.profile__self-description', userPhotoSelector: '.profile__avatar'});
+
+
+
+api.getUserInfo()
+.then(data => {
+  userInfo.setUserInfo(data);
+})
+
 
 const popupWithImg =  new PopupWithImage('.popup_type_view-image');
 popupWithImg.setEventListeners();
@@ -32,14 +51,15 @@ const section = new Section({
 
 section.renderItem();
 
-const userInfo = new UserInfo({userNameSelector:'.profile__name', userDescriptionSelector:'.profile__self-description'});
+
 
 const profilePopupForm = new PopupWithForm(
   '.popup_type_profile-edit',
   (values) => {
-    userInfo.setUserInfo({ newNname: Object.values(values)[0], newDescription: Object.values(values)[1] });
+    console.log('values', values)
+    api.editUserInfo(values)
+    .then(data => userInfo.setUserInfo(data))
   }
-
 )
 
 profilePopupForm.setEventListeners();
@@ -72,3 +92,5 @@ cardAddButton.addEventListener('click', () => {
   cardPopupForm.open();
   }
 )
+
+

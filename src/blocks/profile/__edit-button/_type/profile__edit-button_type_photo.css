@@ -1,25 +1,20 @@
-.profile__avatar {
-  display: block;
+.profile__edit-button_type_photo{
+  display: none;
+  order: 1;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 3;
-  object-fit: cover;
+  border-radius: 50%;
+  border: none;
+  background-size: 26px 26px;
 }
 
-.profile__avatar:hover {
-  opacity: .2;
-}
-
-.profile__avatar:hover ~ .profile__edit-button_type_photo {
-  display: block;
-}
 
 @media screen and (max-width: 730px) {
-  .profile__avatar {
+  .profile__edit-button_type_photo {
     grid-column-end: 3;
     grid-row-end: 2;
     margin-bottom: 26px;
