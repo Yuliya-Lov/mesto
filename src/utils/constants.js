@@ -1,5 +1,6 @@
-export const profileEditButton = document.querySelector('.profile__edit-button');
+export const profileEditButton = document.querySelector('.profile__edit-button_type_info');
 export const cardAddButton = document.querySelector('.profile__add-button');
+export const avatarEditButton = document.querySelector('.profile__edit-button_type_photo');
 
 export const propertySet = {
   inputSelector: '.form__input',
@@ -9,7 +10,7 @@ export const propertySet = {
   errorClass: 'form__input-error_active',
 }
 
-export  const initialCards = [
+/*export  const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -33,7 +34,7 @@ export  const initialCards = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }/*,
+  },
   {
     name: 'Домбай',
     link: new URL('../images/dombai.jpg', import.meta.url)
@@ -57,5 +58,6 @@ export  const initialCards = [
   {
     name: 'Гамсутль',
     link: new URL('../images/gamsutl.jpg', import.meta.url)
-  } */
+  }
 ];
+*/

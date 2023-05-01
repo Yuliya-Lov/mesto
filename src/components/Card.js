@@ -1,10 +1,13 @@
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, removeAction) {
     this._title = data.name;
     this._image = data.link;
+    this._id = data._id;
+    this._likes = data.likes;
     this._template = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._removeAction = removeAction;
   }
 
   _getTemplate() {
@@ -31,8 +34,15 @@ export default class Card {
     evt.target.classList.toggle('place__like-button_active');
   }
 
+  getId(){
+    return this._id;
+  }
+
   _removeCard() {
-    this._card.remove();
+    if(this._removeAction){
+      console.log('можно удалять', this._id);
+      //this.remove()
+    }
   }
 
   _setEventListeners() {

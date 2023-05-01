@@ -4,6 +4,7 @@ export default class Api {
     this._headers = headers;
   }
 
+
   getUserInfo(){
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
@@ -25,7 +26,7 @@ export default class Api {
   }
 
   editUserPhoto(newAvatar){
-    return  fetch(`${this._baseUrl}/users/me`, {
+    return  fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -33,22 +34,61 @@ export default class Api {
         }
       )
     })
-    .then(res => res.json())
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
+
 
   getInitialCards() {
-    console.log( this._baseUrl, this._headers )
-    fetch(this._baseUrl, {
+  return  fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-
-        // если ошибка, отклоняем промис
-
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 
-  // другие методы работы с API
+  addCard(cardObj){
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(cardObj)
+    })
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+  }
+
+  removeCard(cardId){
+    return fetch(`${this._baseUrl}/${cardId}`,{
+      method:'DELETE',
+      headers: this._headers
+    })
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+  }
 }
 
 

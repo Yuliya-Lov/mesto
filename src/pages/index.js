@@ -1,9 +1,9 @@
 import './index.css';
 import {
-  initialCards,
   propertySet,
   profileEditButton,
-  cardAddButton
+  cardAddButton,
+  avatarEditButton
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -23,8 +23,6 @@ const api = new Api({
 
 const userInfo = new UserInfo({userNameSelector:'.profile__name', userDescriptionSelector:'.profile__self-description', userPhotoSelector: '.profile__avatar'});
 
-
-
 api.getUserInfo()
 .then(data => {
   userInfo.setUserInfo(data);
@@ -34,29 +32,58 @@ api.getUserInfo()
 const popupWithImg =  new PopupWithImage('.popup_type_view-image');
 popupWithImg.setEventListeners();
 
+let section;
+
+api.getInitialCards()
+.then(data => {
+  section = new Section({
+    items: data,
+    renderer: (item) => {
+      return createCard(item);
+      }
+    },
+    '.places');
+  section.renderItem();
+})
+
+const confirmPopupForm =  new PopupWithForm(
+  '.popup_type_confirm-action',
+  (value) => {
+    return true;
+  })
+
+  confirmPopupForm.setEventListeners();
+
+
 function createCard(data) {
-  const card = new Card(data, '#cardRender', (evt) => {
-    popupWithImg.open(evt);
+  const card = new Card(
+    data,
+    '#cardRender',
+    (evt) => {
+    popupWithImg.open(evt)},
+    () => {
+    confirmPopupForm.open();
   })
   return card.generateCard();
 }
 
-const section = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    return createCard(item);
-    }
-  },
-  '.places');
 
-section.renderItem();
+const avatarPopupForm = new PopupWithForm(
+  '.popup_type_avatar-edit',
+  (avatar) => {
+    api.editUserPhoto(avatar[0])
+    .then(data => {
+      userInfo.setAvatar(data)
+    })
+  }
+)
 
+avatarPopupForm.setEventListeners();
 
 
 const profilePopupForm = new PopupWithForm(
   '.popup_type_profile-edit',
   (values) => {
-    console.log('values', values)
     api.editUserInfo(values)
     .then(data => userInfo.setUserInfo(data))
   }
@@ -64,14 +91,22 @@ const profilePopupForm = new PopupWithForm(
 
 profilePopupForm.setEventListeners();
 
+
 const cardPopupForm =  new PopupWithForm(
   '.popup_type_add-card',
   (value) => {
-    section.addItem(createCard({'name': Object.values(value)[0], 'link': Object.values(value)[1]}));
+    api.addCard({'name': Object.values(value)[0], 'link': Object.values(value)[1]})
+    .then(card => {
+      const cardRender = createCard(card);
+      section.addItem(cardRender);
+    }
+    )
   }
 )
 
 cardPopupForm.setEventListeners();
+
+
 
 const arrayFormValidatorObjects = {};
 Array.from(document.forms).forEach((form) => {
@@ -84,6 +119,12 @@ profileEditButton.addEventListener('click', () => {
    arrayFormValidatorObjects.formEditProfile.setInitialFormState();
   profilePopupForm.setInitialInputValues(userInfo.getUserInfo());
   profilePopupForm.open();
+}
+);
+
+avatarEditButton.addEventListener('click', () => {
+  arrayFormValidatorObjects.formEditAvatar.setInitialFormState();
+  avatarPopupForm.open();
 }
 );
 

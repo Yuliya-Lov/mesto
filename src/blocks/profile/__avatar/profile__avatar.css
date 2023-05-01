@@ -1,6 +1,8 @@
 .profile__avatar {
+  margin: 0;
+  padding: 0;
   display: block;
-  width: 120px;
+  width: 120.5px;
   height: 120px;
   border-radius: 50%;
   grid-column-start: 1;
@@ -8,15 +10,9 @@
   grid-row-start: 1;
   grid-row-end: 3;
   object-fit: cover;
+  transition:  opacity .5s ease-in-out;
 }
 
-.profile__avatar:hover {
-  opacity: .2;
-}
-
-.profile__avatar:hover ~ .profile__edit-button_type_photo {
-  display: block;
-}
 
 @media screen and (max-width: 730px) {
   .profile__avatar {

@@ -29,7 +29,7 @@
         <button type="button" class="place__delete-button" aria-label="Удалить место."></button>
         <div class="place__about">
           <h2 class="place__title">Заголовок</h2>
-          <button  type="button" class="place__like-button" aria-label="Поставить лайк."></button>
+          <button  type="button" class="place__like-button" aria-label="Поставить лайк.">0</button>
         </div>
       </article>
     </template>
@@ -71,5 +71,25 @@
     <button type="button" class="popup__button-close" aria-label="Закрыть изображение."></button>
   </div>
 </div>
+<div class="popup popup_type_avatar-edit">
+  <div class="popup__container">
+    <h2 class="popup__title">Обновить аватар</h2>
+    <button type="button" class="popup__button-close" aria-label="Закрыть форму редактирования фотографии профиля."></button>
+    <form class="form form_type_avatar-edit" name="formEditAvatar" novalidate>
+      <input type="url"  id="avatar-input"  placeholder="Ссылка на картинку" class="form__input form__input_value_avatar" minlength="2" maxlength="200" required>
+      <span class="form__input-error avatar-input-error"></span>
+      <button type="submit" class="form__submit-button form__submit-button_disabled">Сохранить</button>
+    </form>
+  </div>
+</div>
+<div class="popup popup_type_confirm-action">
+  <div class="popup__container">
+    <h2 class="popup__title">Вы уверены?</h2>
+    <button type="button" class="popup__button-close" aria-label="Закрыть форму подтверждения действия."></button>
+    <form class="form form_type_confirm-action" name="formConfirmAction" novalidate>
+      <button type="submit" class="form__submit-button form__submit-button_disabled">Да</button>
+    </form>
+  </div>
+ </div>
 </body>
 </html>
