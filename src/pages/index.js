@@ -23,18 +23,23 @@ const api = new Api({
 
 const userInfo = new UserInfo({userNameSelector:'.profile__name', userDescriptionSelector:'.profile__self-description', userPhotoSelector: '.profile__avatar'});
 
-api.getUserInfo()
-.then(data => {
-  userInfo.setUserInfo(data);
-})
+let ownerId;
 
+
+ api.getUserInfo()
+  .then(data => {
+  userInfo.setUserInfo(data);
+  ownerId = data._id;
+  console.log(ownerId)
+ })
 
 const popupWithImg =  new PopupWithImage('.popup_type_view-image');
 popupWithImg.setEventListeners();
 
 let section;
 
-api.getInitialCards()
+function setCards(){
+  api.getInitialCards()
 .then(data => {
   section = new Section({
     items: data,
@@ -45,12 +50,14 @@ api.getInitialCards()
     '.places');
   section.renderItem();
 })
+}
+
+setCards();
 
 const confirmPopupForm =  new PopupWithForm(
   '.popup_type_confirm-action',
-  (value) => {
-    return true;
-  })
+  () => true
+ )
 
   confirmPopupForm.setEventListeners();
 
@@ -60,18 +67,28 @@ function createCard(data) {
     data,
     '#cardRender',
     (evt) => {
-    popupWithImg.open(evt)},
-    () => {
+    popupWithImg.open(evt)
+    },
+    (cardId) => {
+    arrayFormValidatorObjects.formConfirmAction.setInitialFormState();
     confirmPopupForm.open();
-  })
-  return card.generateCard();
+    confirmPopupForm.popupSubmitButton.addEventListener('click', () => {
+      console.log('cardId', cardId)
+      api.removeCard(cardId);
+      section.deleteItem(cardId);
+      //setCards();
+    });
+
+    }
+  )
+  return card.generateCard(ownerId);
 }
 
 
 const avatarPopupForm = new PopupWithForm(
   '.popup_type_avatar-edit',
-  (avatar) => {
-    api.editUserPhoto(avatar[0])
+  (values) => {
+     api.editUserPhoto(values[0])
     .then(data => {
       userInfo.setAvatar(data)
     })

@@ -6,19 +6,19 @@ export default class PopupWithForm extends Popup {
     this._submitAction = submitAction;
     this._popupForm = this._popup.querySelector('.form');
     this._popupInputList = this._popup.querySelectorAll('.form__input');
-    this._popupSubmitButton = this._popup.querySelector('.form__submit-button');
-    this._popupSubmitButtonDefaultText = this._popupSubmitButton.textContent;
+    this.popupSubmitButton = this._popup.querySelector('.form__submit-button');
+    this._popupSubmitButtonDefaultText = this.popupSubmitButton.textContent;
   }
 
   _loadingView(isLoading){
     if (isLoading){
-      this._popupSubmitButton.textContent = "Сохранение...";
+      this.popupSubmitButton.textContent = "Сохранение...";
     } else {
-      this._popupSubmitButton.textContent = this._popupSubmitButtonDefaultText;
+      this.popupSubmitButton.textContent = this._popupSubmitButtonDefaultText;
     }
    }
 
-  _getInputValues(){
+  getInputValues(){
     const inputValues = {};
     Array.from(this._popupInputList).forEach((input, index) => {
       inputValues[index] = input.value;
@@ -37,7 +37,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupForm.addEventListener('submit', () => {
       this._loadingView(true);
-      this._submitAction(this._getInputValues());
+      this._submitAction(this.getInputValues());
       setTimeout(() => {
         this.close();
         this._loadingView(false);

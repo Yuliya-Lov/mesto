@@ -1,13 +1,14 @@
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, removeAction) {
+  constructor(data, templateSelector, handleCardClick, isConfirmDel) {
     this._title = data.name;
     this._image = data.link;
-    this._id = data._id;
+    this.id = data._id;
+    this._ownerId = data.owner._id;
     this._likes = data.likes;
     this._template = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._removeAction = removeAction;
+    this._isConfirmDel = isConfirmDel;
   }
 
   _getTemplate() {
@@ -18,11 +19,13 @@ export default class Card {
     .cloneNode(true);
   }
 
-  _createCard() {
+  _createCard(currentId) {
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector('.place__image');
     this._cardTitle = this._card.querySelector('.place__title');
     this._deleteButton = this._card.querySelector('.place__delete-button');
+    if(this._ownerId != currentId) this._deleteButton.classList.add('place__delete-button_hidden');
+
     this._likeButton =  this._card.querySelector('.place__like-button');
     this._cardTitle.textContent = this._title;
     this._cardImage.setAttribute('src', this._image);
@@ -34,15 +37,8 @@ export default class Card {
     evt.target.classList.toggle('place__like-button_active');
   }
 
-  getId(){
-    return this._id;
-  }
-
   _removeCard() {
-    if(this._removeAction){
-      console.log('можно удалять', this._id);
-      //this.remove()
-    }
+    this._isConfirmDel(this.id);
   }
 
   _setEventListeners() {
@@ -51,8 +47,8 @@ export default class Card {
     this._cardImage.addEventListener('click', (evt) => {this._handleCardClick(evt)});
   }
 
-  generateCard() {
-    this._createCard();
+  generateCard(ownerId) {
+    this._createCard(ownerId);
     this._setEventListeners();
     return this._card;
   }
