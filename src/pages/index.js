@@ -12,6 +12,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
@@ -30,37 +31,11 @@ let ownerId;
   .then(data => {
   userInfo.setUserInfo(data);
   ownerId = data._id;
-  console.log(ownerId)
  })
 
 const popupWithImg =  new PopupWithImage('.popup_type_view-image');
+
 popupWithImg.setEventListeners();
-
-let section;
-
-function setCards(){
-  api.getInitialCards()
-.then(data => {
-  section = new Section({
-    items: data,
-    renderer: (item) => {
-      return createCard(item);
-      }
-    },
-    '.places');
-  section.renderItem();
-})
-}
-
-setCards();
-
-const confirmPopupForm =  new PopupWithForm(
-  '.popup_type_confirm-action',
-  () => true
- )
-
-  confirmPopupForm.setEventListeners();
-
 
 function createCard(data) {
   const card = new Card(
@@ -70,19 +45,45 @@ function createCard(data) {
     popupWithImg.open(evt)
     },
     (cardId) => {
-    arrayFormValidatorObjects.formConfirmAction.setInitialFormState();
     confirmPopupForm.open();
-    confirmPopupForm.popupSubmitButton.addEventListener('click', () => {
-      console.log('cardId', cardId)
-      api.removeCard(cardId);
-      section.deleteItem(cardId);
-      //setCards();
+    confirmPopupForm.setObjId(cardId);
+    },
+    (isLiked) => {
+      return isLiked == false
+      ? api.pushLike(card.id)
+      : api.removeLike(card.id);
     });
 
-    }
-  )
   return card.generateCard(ownerId);
 }
+
+
+let section;
+
+api.getInitialCards()
+  .then(data => {
+    section = new Section({
+      items: data,
+      renderer: (item) => {
+      return createCard(item);
+      }
+    },
+    '.places');
+  section.renderItem();
+})
+
+
+const confirmPopupForm =  new PopupWithConfirm (
+  '.popup_type_confirm-action',
+  (id) => {
+    api.removeCard(id)
+    .then(res => {
+      if(res) document.getElementById(id).remove();
+    })
+  }
+ )
+
+ confirmPopupForm.setEventListeners();
 
 
 const avatarPopupForm = new PopupWithForm(
@@ -124,7 +125,6 @@ const cardPopupForm =  new PopupWithForm(
 cardPopupForm.setEventListeners();
 
 
-
 const arrayFormValidatorObjects = {};
 Array.from(document.forms).forEach((form) => {
   const validatedForm = new FormValidator(propertySet, form);
@@ -150,5 +150,3 @@ cardAddButton.addEventListener('click', () => {
   cardPopupForm.open();
   }
 )
-
-

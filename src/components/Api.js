@@ -4,12 +4,18 @@ export default class Api {
     this._headers = headers;
   }
 
-
   getUserInfo(){
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-    .then(res => res.json())
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 
   editUserInfo(bodyInfo){
@@ -22,7 +28,14 @@ export default class Api {
         }
       )
     })
-    .then(res => res.json())
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 
   editUserPhoto(newAvatar){
@@ -44,9 +57,8 @@ export default class Api {
     .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 
-
   getInitialCards() {
-  return  fetch(`${this._baseUrl}/cards`, {
+    return  fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
     .then(res =>  {
@@ -76,14 +88,43 @@ export default class Api {
   }
 
   removeCard(cardId){
-    console.log(`${this._baseUrl}/cards/${cardId}`);
     return fetch(`${this._baseUrl}/cards/${cardId}`,{
       method:'DELETE',
       headers: this._headers
     })
     .then(res =>  {
       if(res.ok){
-         return true;
+         return res.ok;
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+  }
+
+  pushLike(cardId){
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
+      method:'PUT',
+      headers: this._headers
+    })
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+      })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+  }
+
+  removeLike(cardId){
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
+      method:'DELETE',
+      headers: this._headers
+    })
+    .then(res =>  {
+      if(res.ok){
+         return res.json();
       } else {
         return Promise.reject(res.status);
       }
@@ -91,5 +132,3 @@ export default class Api {
     .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 }
-
-

@@ -9,19 +9,10 @@ export default class Section {
     this._container.prepend(itemRender);
   }
 
-  deleteItem(id){
-    console.log(id);
-    const card = this._items.find(item => console.log(item._id == id));
-    //console.log(card);
-  }
-
   renderItem(){
     this._items.forEach(item => {
       this.addItem(this._renderer(item));
     });
   }
 
-  clearAll(){
-    this._container.innerHTML ='';
-  }
 }

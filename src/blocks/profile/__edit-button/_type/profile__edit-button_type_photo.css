@@ -2,7 +2,7 @@
   display: grid;
   background-color: rgb(0, 0, 0);
   order: 1;
-  width: 120px;
+  width: 122px;
   height: 120px;
   grid-column-start: 1;
   grid-column-end: 2;
