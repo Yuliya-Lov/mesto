@@ -4,18 +4,17 @@ export default class Api {
     this._headers = headers;
   }
 
+  _isResponseOk(res){
+     return res.ok
+    ? res.json()
+    : Promise.reject(res.status);
+  }
+
   getUserInfo(){
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 
   editUserInfo(bodyInfo){
@@ -25,17 +24,9 @@ export default class Api {
       body: JSON.stringify({
         name: bodyInfo[0],
         about: bodyInfo[1]
-        }
-      )
-    })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
       })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    })
+    .then(res => this._isResponseOk(res))
   }
 
   editUserPhoto(newAvatar){
@@ -44,31 +35,16 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify({
         avatar: newAvatar,
-        }
-      )
-    })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
       })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    })
+    .then(res => this._isResponseOk(res))
   }
 
   getInitialCards() {
     return  fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 
   addCard(cardObj){
@@ -77,14 +53,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(cardObj)
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 
   removeCard(cardId){
@@ -92,14 +61,7 @@ export default class Api {
       method:'DELETE',
       headers: this._headers
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.ok;
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 
   pushLike(cardId){
@@ -107,14 +69,7 @@ export default class Api {
       method:'PUT',
       headers: this._headers
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 
   removeLike(cardId){
@@ -122,13 +77,6 @@ export default class Api {
       method:'DELETE',
       headers: this._headers
     })
-    .then(res =>  {
-      if(res.ok){
-         return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-      })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+    .then(res => this._isResponseOk(res))
   }
 }

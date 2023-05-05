@@ -6,7 +6,6 @@ export default class PopupWithConfirm  extends Popup{
     this.popupSubmitButton = this._popup.querySelector('.form__submit-button');
     this._handleSubmitClick = handleSubmitClick;
     this._popupSubmitButtonDefaultText = this.popupSubmitButton.textContent;
-
   }
 
   _loadingView(isLoading){
@@ -22,17 +21,15 @@ export default class PopupWithConfirm  extends Popup{
     return  this.objId;
   }
 
-
   setEventListeners(){
     super.setEventListeners();
     this.popupSubmitButton.addEventListener('click', () => {
       this._loadingView(true);
       this._handleSubmitClick(this.objId);
       setTimeout(() => {
-        this.close();
         this._loadingView(false);
       }
-      , 500)
+      , 700)
     })
   }
 }

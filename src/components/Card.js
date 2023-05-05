@@ -10,7 +10,6 @@ export default class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeclick =handleLikeclick;
     this._likes = data.likes;
-
   }
 
   _getTemplate() {
@@ -44,12 +43,12 @@ export default class Card {
     this._likeButton.textContent =  arrLikes.length;
   }
 
-
   _getLikes() {
   this._handleLikeclick(this._isLiked)
     .then(res =>{
       this._setLikes(res.likes);
     })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 
   _removeCard() {

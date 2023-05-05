@@ -25,16 +25,28 @@ const api = new Api({
 const userInfo = new UserInfo({userNameSelector:'.profile__name', userDescriptionSelector:'.profile__self-description', userPhotoSelector: '.profile__avatar'});
 
 let ownerId;
+let section;
 
+const userPromise = api.getUserInfo();
+const renderPromise = api.getInitialCards();
 
- api.getUserInfo()
-  .then(data => {
-  userInfo.setUserInfo(data);
-  ownerId = data._id;
- })
+Promise.all([userPromise, renderPromise])
+.then(([userData, renderData]) => {
+  userInfo.setUserInfo(userData);
+  ownerId = userData._id;
+
+  section = new Section({
+    items: renderData.reverse(),
+    renderer: (item) => {
+    return createCard(item);
+    }
+  },
+  '.places');
+  section.renderItems();
+  })
+.catch(err => console.error('Ошибка привыполнении запроса:', err));
 
 const popupWithImg =  new PopupWithImage('.popup_type_view-image');
-
 popupWithImg.setEventListeners();
 
 function createCard(data) {
@@ -53,25 +65,8 @@ function createCard(data) {
       ? api.pushLike(card.id)
       : api.removeLike(card.id);
     });
-
   return card.generateCard(ownerId);
 }
-
-
-let section;
-
-api.getInitialCards()
-  .then(data => {
-    section = new Section({
-      items: data,
-      renderer: (item) => {
-      return createCard(item);
-      }
-    },
-    '.places');
-  section.renderItem();
-})
-
 
 const confirmPopupForm =  new PopupWithConfirm (
   '.popup_type_confirm-action',
@@ -79,12 +74,13 @@ const confirmPopupForm =  new PopupWithConfirm (
     api.removeCard(id)
     .then(res => {
       if(res) document.getElementById(id).remove();
+      confirmPopupForm.close();
     })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
  )
 
- confirmPopupForm.setEventListeners();
-
+confirmPopupForm.setEventListeners();
 
 const avatarPopupForm = new PopupWithForm(
   '.popup_type_avatar-edit',
@@ -92,23 +88,27 @@ const avatarPopupForm = new PopupWithForm(
      api.editUserPhoto(values[0])
     .then(data => {
       userInfo.setAvatar(data)
+      avatarPopupForm.close();
     })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 )
 
 avatarPopupForm.setEventListeners();
 
-
 const profilePopupForm = new PopupWithForm(
   '.popup_type_profile-edit',
   (values) => {
     api.editUserInfo(values)
-    .then(data => userInfo.setUserInfo(data))
+    .then(data => {
+      userInfo.setUserInfo(data);
+      profilePopupForm.close();
+    })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 )
 
 profilePopupForm.setEventListeners();
-
 
 const cardPopupForm =  new PopupWithForm(
   '.popup_type_add-card',
@@ -117,36 +117,33 @@ const cardPopupForm =  new PopupWithForm(
     .then(card => {
       const cardRender = createCard(card);
       section.addItem(cardRender);
-    }
-    )
+      cardPopupForm.close();
+    })
+    .catch(err => console.error('Ошибка привыполнении запроса:', err));
   }
 )
 
 cardPopupForm.setEventListeners();
 
-
-const arrayFormValidatorObjects = {};
+const validators = {};
 Array.from(document.forms).forEach((form) => {
   const validatedForm = new FormValidator(propertySet, form);
-  arrayFormValidatorObjects[form.name] = validatedForm;
+  validators[form.name] = validatedForm;
   validatedForm.enableValidation();
 })
 
 profileEditButton.addEventListener('click', () => {
-   arrayFormValidatorObjects.formEditProfile.setInitialFormState();
+  validators.formEditProfile.setInitialFormState();
   profilePopupForm.setInitialInputValues(userInfo.getUserInfo());
   profilePopupForm.open();
-}
-);
+});
 
 avatarEditButton.addEventListener('click', () => {
-  arrayFormValidatorObjects.formEditAvatar.setInitialFormState();
+  validators.formEditAvatar.setInitialFormState();
   avatarPopupForm.open();
-}
-);
+});
 
 cardAddButton.addEventListener('click', () => {
-  arrayFormValidatorObjects.formAddCard.setInitialFormState();
+  validators.formAddCard.setInitialFormState();
   cardPopupForm.open();
-  }
-)
+})

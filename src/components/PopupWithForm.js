@@ -23,7 +23,6 @@ export default class PopupWithForm extends Popup {
     Array.from(this._popupInputList).forEach((input, index) => {
       inputValues[index] = input.value;
     })
-
     return inputValues;
   }
 
@@ -39,10 +38,9 @@ export default class PopupWithForm extends Popup {
       this._loadingView(true);
       this._submitAction(this.getInputValues());
       setTimeout(() => {
-        this.close();
         this._loadingView(false);
       }
-      , 500)
+      , 700)
     } );
   }
 
