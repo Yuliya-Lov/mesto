@@ -61,9 +61,16 @@ function createCard(data) {
     confirmPopupForm.setObjId(cardId);
     },
     (isLiked) => {
-      return isLiked == false
+    const resolve =
+      isLiked == false
       ? api.pushLike(card.id)
       : api.removeLike(card.id);
+
+      resolve
+      .then(res =>{
+        card._setLikes(res.likes);
+      })
+      .catch(err => console.error('Ошибка привыполнении запроса:', err));
     });
   return card.generateCard(ownerId);
 }

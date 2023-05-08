@@ -44,11 +44,7 @@ export default class Card {
   }
 
   _getLikes() {
-  this._handleLikeclick(this._isLiked)
-    .then(res =>{
-      this._setLikes(res.likes);
-    })
-    .catch(err => console.error('Ошибка привыполнении запроса:', err));
+  this._handleLikeclick(this._isLiked);
   }
 
   _removeCard() {
